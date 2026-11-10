@@ -33,7 +33,7 @@ export const Hero: React.FC<HeroProps> = ({
   onOpenQuoteModal,
 }) => {
   return (
-    <section id="inicio" className="relative overflow-hidden bg-[#03214a] text-white min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] flex items-center">
+    <section id="inicio" className="relative z-10 overflow-hidden bg-[#03214a] text-white min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] flex items-center">
       {/* Background Container anchored to the RIGHT, scaling to 100% height without any cropping of helmet or yellow badge */}
       <div className="absolute inset-0 z-0 flex justify-end overflow-hidden bg-[#03214a] pointer-events-none select-none">
         <picture className="h-full flex justify-end shrink-0">

@@ -18,7 +18,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({
   onUpdateTestimonials,
 }) => {
   return (
-    <section id="depoimentos" className="py-12 sm:py-16 bg-[#0a2f60] text-white overflow-hidden relative">
+    <section id="depoimentos" className="relative z-20 -mt-4 sm:-mt-6 rounded-t-3xl sm:rounded-t-[40px] py-12 sm:py-16 bg-[#0a2f60] text-white overflow-hidden shadow-[0_-15px_30px_rgba(0,0,0,0.25)] scroll-mt-16 sm:scroll-mt-20">
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[300px] bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
 

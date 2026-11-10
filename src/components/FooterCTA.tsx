@@ -29,7 +29,7 @@ export const FooterCTA: React.FC<FooterCTAProps> = ({
   onOpenLegal,
 }) => {
   return (
-    <footer id="contato" className="relative overflow-hidden bg-[#073670] text-white">
+    <footer id="contato" className="relative z-20 -mt-6 sm:-mt-8 rounded-t-3xl sm:rounded-t-[40px] overflow-hidden bg-[#073670] text-white shadow-[0_-20px_40px_rgba(0,0,0,0.35)] scroll-mt-16 sm:scroll-mt-20">
       {/* Background: Rio de Janeiro Panoramic Skyline & Ocean */}
       <div className="absolute inset-0 z-0">
         <img
