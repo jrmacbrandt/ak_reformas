@@ -1,6 +1,6 @@
 import React from 'react';
 import { AKBrandLogo, WhatsAppIcon, YellowCheckBadge } from './Icons';
-import { ChevronRight, ShieldCheck, FileText } from 'lucide-react';
+import { ChevronRight, ShieldCheck, FileText, Cookie } from 'lucide-react';
 import { LegalTab } from './LegalModal';
 
 interface FooterCTAProps {
@@ -171,7 +171,7 @@ export const FooterCTA: React.FC<FooterCTAProps> = ({
               </a>
             </div>
 
-            {/* Legal Navigation Links: Política de Privacidade, Termos de Uso */}
+            {/* Legal Navigation Links: Política de Privacidade, Termos de Uso, Política de Cookies */}
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-medium text-white/80">
               <button
                 onClick={() => onOpenLegal && onOpenLegal('privacy')}
@@ -186,6 +186,13 @@ export const FooterCTA: React.FC<FooterCTAProps> = ({
               >
                 <FileText className="w-3.5 h-3.5 text-yellow-300" />
                 <span>Termos de Uso</span>
+              </button>
+              <button
+                onClick={() => onOpenLegal && onOpenLegal('cookies')}
+                className="flex items-center gap-1.5 hover:text-white transition-colors bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg border border-white/15 cursor-pointer"
+              >
+                <Cookie className="w-3.5 h-3.5 text-yellow-300" />
+                <span>Política de Cookies</span>
               </button>
             </div>
 

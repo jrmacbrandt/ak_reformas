@@ -13,6 +13,7 @@ import { ShowcaseModal } from './components/ShowcaseModal';
 import { FloatingTools } from './components/FloatingTools';
 import { OriginalComparisonModal } from './components/OriginalComparisonModal';
 import { LegalModal, LegalTab } from './components/LegalModal';
+import { CookieConsent } from './components/CookieConsent';
 
 export default function App() {
   // Load saved layers from localStorage if available, otherwise use initialSiteLayers
@@ -307,12 +308,17 @@ export default function App() {
         onClose={() => setIsComparing(false)}
       />
 
-      {/* Institutional Legal Modal (Política de Privacidade & Termos de Uso) */}
+      {/* Institutional Legal Modal (Política de Privacidade, Termos de Uso & Cookies) */}
       <LegalModal
         isOpen={isLegalModalOpen}
         initialTab={legalModalTab}
         onClose={() => setIsLegalModalOpen(false)}
         onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
+      />
+
+      {/* LGPD Cookie Consent Banner */}
+      <CookieConsent
+        onOpenCookiesPolicy={() => handleOpenLegal('cookies')}
       />
 
     </div>

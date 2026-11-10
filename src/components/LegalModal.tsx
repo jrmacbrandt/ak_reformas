@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { X, ShieldCheck, FileText, Printer, CheckCircle2, Building2, Phone, Mail, MapPin } from 'lucide-react';
+import { X, ShieldCheck, FileText, Printer, CheckCircle2, Building2, Phone, Mail, MapPin, Cookie } from 'lucide-react';
 
-export type LegalTab = 'privacy' | 'terms';
+export type LegalTab = 'privacy' | 'terms' | 'cookies';
 
 interface LegalModalProps {
   isOpen: boolean;
@@ -63,15 +63,15 @@ export const LegalModal: React.FC<LegalModalProps> = ({
         <div className="bg-gradient-to-r from-[#033b7b] via-[#054fa8] to-[#0170d4] text-white px-5 sm:px-8 py-5 flex items-center justify-between gap-4 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center border border-white/20">
-              {activeTab === 'privacy' ? (
-                <ShieldCheck className="w-5 h-5 text-yellow-300" />
-              ) : (
-                <FileText className="w-5 h-5 text-yellow-300" />
-              )}
+              {activeTab === 'privacy' && <ShieldCheck className="w-5 h-5 text-yellow-300" />}
+              {activeTab === 'terms' && <FileText className="w-5 h-5 text-yellow-300" />}
+              {activeTab === 'cookies' && <Cookie className="w-5 h-5 text-yellow-300" />}
             </div>
             <div>
               <h2 id="legal-modal-title" className="text-lg sm:text-xl font-bold font-display tracking-tight text-white">
-                {activeTab === 'privacy' ? 'Política de Privacidade' : 'Termos de Uso e Condições'}
+                {activeTab === 'privacy' && 'Política de Privacidade'}
+                {activeTab === 'terms' && 'Termos de Uso e Condições'}
+                {activeTab === 'cookies' && 'Política de Cookies'}
               </h2>
               <p className="text-xs text-white/80">
                 AK Reformas e Manutenção Predial · Transparência e Segurança Jurídica
@@ -99,10 +99,10 @@ export const LegalModal: React.FC<LegalModalProps> = ({
         </div>
 
         {/* Tab Switcher */}
-        <div className="bg-slate-100 border-b border-slate-200 px-5 sm:px-8 py-2.5 flex items-center gap-2 shrink-0">
+        <div className="bg-slate-100 border-b border-slate-200 px-5 sm:px-8 py-2.5 flex items-center gap-2 shrink-0 overflow-x-auto">
           <button
             onClick={() => setActiveTab('privacy')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'privacy'
                 ? 'bg-white text-blue-700 shadow-sm border border-slate-200'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
@@ -113,7 +113,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
           </button>
           <button
             onClick={() => setActiveTab('terms')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'terms'
                 ? 'bg-white text-blue-700 shadow-sm border border-slate-200'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
@@ -122,11 +122,22 @@ export const LegalModal: React.FC<LegalModalProps> = ({
             <FileText className="w-4 h-4 text-blue-600" />
             <span>Termos de Uso</span>
           </button>
+          <button
+            onClick={() => setActiveTab('cookies')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
+              activeTab === 'cookies'
+                ? 'bg-white text-blue-700 shadow-sm border border-slate-200'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+            }`}
+          >
+            <Cookie className="w-4 h-4 text-blue-600" />
+            <span>Política de Cookies</span>
+          </button>
         </div>
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto px-5 sm:px-8 py-6 text-sm leading-relaxed text-slate-700 space-y-6">
-          {activeTab === 'privacy' ? (
+          {activeTab === 'privacy' && (
             /* ================= POLÍTICA DE PRIVACIDADE ================= */
             <div className="space-y-6 animate-in fade-in duration-150">
               <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-xs text-blue-900 flex items-start gap-3">
@@ -202,7 +213,9 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                 </div>
               </section>
             </div>
-          ) : (
+          )}
+
+          {activeTab === 'terms' && (
             /* ================= TERMOS DE USO ================= */
             <div className="space-y-6 animate-in fade-in duration-150">
               <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-amber-900 flex items-start gap-3">
@@ -260,6 +273,124 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                 <p>
                   Os presentes termos são regidos pelas leis da República Federativa do Brasil. Fica eleito o Foro da Comarca da Capital do Estado do Rio de Janeiro para dirimir quaisquer controvérsias oriundas da utilização do presente sítio eletrônico.
                 </p>
+              </section>
+            </div>
+          )}
+
+          {activeTab === 'cookies' && (
+            /* ================= POLÍTICA DE COOKIES ================= */
+            <div className="space-y-6 animate-in fade-in duration-150">
+              <div className="bg-amber-50/80 border border-amber-200 rounded-xl p-4 text-xs text-amber-950 flex items-start gap-3">
+                <Cookie className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-bold text-amber-950 mb-0.5">Uso Consciente e Transparente de Cookies</p>
+                  <p>
+                    Esta política descreve como a AK Reformas e Manutenção Predial utiliza cookies e tecnologias similares em seu portal, 
+                    assegurando ao usuário total controle e transparência conforme as diretrizes da Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
+                  </p>
+                </div>
+              </div>
+
+              <section className="space-y-2">
+                <h3 className="text-base font-bold text-slate-900 font-display">1. O que são Cookies?</h3>
+                <p>
+                  Cookies são pequenos arquivos de texto armazenados no navegador do seu dispositivo (computador, smartphone ou tablet) quando você visita nosso website. Eles têm a função de reconhecer seu navegador, memorizar preferências essenciais de navegação (como personalizações visuais e fechamento de avisos) e permitir que os serviços funcionem com máxima estabilidade e rapidez.
+                </p>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-base font-bold text-slate-900 font-display">2. Para que Utilizamos Cookies?</h3>
+                <p>
+                  A <strong>AK Reformas e Manutenção Predial</strong> utiliza cookies e armazenamento local exclusivamente para finalidades legítimas e necessárias à prestação de nossos serviços de engenharia e reformas:
+                </p>
+                <ul className="list-disc pl-5 space-y-1 text-slate-600">
+                  <li><strong>Estabilidade e Segurança:</strong> Garantir que as páginas carreguem com rapidez, prevenindo falhas de navegação e protegendo contra requisições maliciosas;</li>
+                  <li><strong>Experiência do Usuário:</strong> Memorizar preferências do visitante (como o consentimento de cookies e status de fechamento de janelas modais);</li>
+                  <li><strong>Atendimento e Orçamentos:</strong> Facilitar a integração rápida com nossos canais de atendimento direto via WhatsApp e formulários de orçamento técnico;</li>
+                  <li><strong>Métricas Anônimas de Desempenho:</strong> Analisar a audiência de forma agregada e anônima, identificando quais serviços (fachadas prediais, impermeabilizações, pinturas técnicas) despertam maior interesse no Rio de Janeiro.</li>
+                </ul>
+              </section>
+
+              <section className="space-y-3">
+                <h3 className="text-base font-bold text-slate-900 font-display">3. Categorias de Cookies que Utilizamos</h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                      <h4 className="font-bold text-slate-900 text-xs sm:text-sm">Cookies Estritamente Necessários (Essenciais)</h4>
+                    </div>
+                    <p className="text-xs text-slate-600">
+                      Fundamentais para o carregamento do site, segurança, balanceamento de carga e integridade das sessões. Sem eles, o site não funciona adequadamente. Não exigem consentimento prévio nos termos da LGPD.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                      <h4 className="font-bold text-slate-900 text-xs sm:text-sm">Cookies de Funcionalidade e Preferência</h4>
+                    </div>
+                    <p className="text-xs text-slate-600">
+                      Guardam preferências do usuário (como opções de visualização, formulários preenchidos previamente e registro de consentimento) para que você não precise configurá-los a cada visita.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                      <h4 className="font-bold text-slate-900 text-xs sm:text-sm">Cookies Analíticos e de Desempenho</h4>
+                    </div>
+                    <p className="text-xs text-slate-600">
+                      Coletam informações estatísticas anônimas sobre páginas visitadas, tempo de permanência e taxa de erros, auxiliando nossa equipe a aprimorar constantemente o portal.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+                      <h4 className="font-bold text-slate-900 text-xs sm:text-sm">Cookies de Terceiros e Integrações</h4>
+                    </div>
+                    <p className="text-xs text-slate-600">
+                      Utilizados para conectar com serviços confiáveis de parceiros, como a API oficial do WhatsApp (para atendimento e envio de fotos para vistoria técnica) e redes de entrega de conteúdo (CDN).
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-base font-bold text-slate-900 font-display">4. Como Você Pode Gerenciar ou Desativar os Cookies</h3>
+                <p>
+                  Você pode, a qualquer instante, configurar seu navegador para bloquear ou alertá-lo sobre o uso de cookies. No entanto, lembre-se de que a desativação de cookies essenciais pode afetar algumas funcionalidades interativas do nosso portal.
+                </p>
+                <p className="text-xs text-slate-600">
+                  Para gerenciar cookies diretamente no seu navegador:
+                </p>
+                <ul className="list-disc pl-5 space-y-1 text-slate-600 text-xs">
+                  <li><strong>Google Chrome:</strong> Configurações &gt; Privacidade e Segurança &gt; Cookies de terceiros.</li>
+                  <li><strong>Mozilla Firefox:</strong> Configurações &gt; Privacidade e Segurança &gt; Cookies e dados de sites.</li>
+                  <li><strong>Apple Safari:</strong> Preferências &gt; Privacidade &gt; Gerenciar Dados do Site.</li>
+                  <li><strong>Microsoft Edge:</strong> Configurações &gt; Cookies e permissões de site &gt; Gerenciar e excluir cookies.</li>
+                </ul>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-base font-bold text-slate-900 font-display">5. Validade e Retenção dos Cookies</h3>
+                <p>
+                  Os cookies de sessão expiram automaticamente assim que você fecha o seu navegador. Já os cookies persistentes permanecem armazenados por um período predeterminado ou até que você realize a limpeza do histórico do navegador.
+                </p>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-base font-bold text-slate-900 font-display">6. Dúvidas e Fale Conosco</h3>
+                <p>
+                  Em caso de dúvidas sobre nossa Política de Cookies ou sobre como seus dados são tratados, entre em contato diretamente com nossa equipe de suporte e encarregado de dados (DPO):
+                </p>
+                <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs space-y-1.5 text-slate-600">
+                  <p className="font-semibold text-slate-900">AK Reformas e Manutenção Predial</p>
+                  <p className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5 text-blue-600" /> Atendimento em todo o Rio de Janeiro - RJ</p>
+                  <p className="flex items-center gap-2"><Phone className="w-3.5 h-3.5 text-blue-600" /> WhatsApp: (21) 99999-9999</p>
+                  <p className="flex items-center gap-2"><Mail className="w-3.5 h-3.5 text-blue-600" /> E-mail: contato@akreformas.com.br</p>
+                </div>
               </section>
             </div>
           )}
