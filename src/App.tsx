@@ -209,6 +209,7 @@ export default function App() {
           paragraph={layers.hero.paragraph}
           buttonTitle={layers.hero.buttonTitle}
           buttonSubtitle={layers.hero.buttonSubtitle}
+          backgroundImage={layers.hero.backgroundImage || '/extracted/header_bg.webp'}
           isEditable={isDirectEditMode}
           onUpdateHero={handleUpdateHero}
           onOpenQuoteModal={() => setIsQuoteModalOpen(true)}

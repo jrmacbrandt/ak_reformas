@@ -12,6 +12,7 @@ interface HeroProps {
   paragraph: string;
   buttonTitle: string;
   buttonSubtitle: string;
+  backgroundImage?: string;
   isEditable?: boolean;
   onUpdateHero?: (field: string, val: string | number) => void;
   onOpenQuoteModal: () => void;
@@ -26,17 +27,35 @@ export const Hero: React.FC<HeroProps> = ({
   paragraph,
   buttonTitle,
   buttonSubtitle,
+  backgroundImage = '/extracted/header_bg.webp',
   isEditable = false,
   onUpdateHero,
   onOpenQuoteModal,
 }) => {
   return (
-    <section id="inicio" className="relative overflow-hidden bg-gradient-to-r from-[#02408c] via-[#0459be] to-[#017ce8] text-white">
+    <section id="inicio" className="relative overflow-hidden bg-[#023373] text-white">
+      {/* Background WebP Image */}
+      <div className="absolute inset-0 z-0">
+        <picture>
+          <source media="(max-width: 768px)" srcSet="/extracted/header_bg_mobile.webp" type="image/webp" />
+          <source media="(min-width: 769px)" srcSet={backgroundImage} type="image/webp" />
+          <img
+            src={backgroundImage}
+            alt="AK Reformas e Manutenção Predial Fundo Header"
+            className="w-full h-full object-cover object-right lg:object-center"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </picture>
+        {/* Soft gradient overlay on left for 100% text contrast and readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#022859]/90 via-[#033b7b]/55 to-transparent pointer-events-none" />
+      </div>
+
       {/* Top curved wave separator */}
       <div className="absolute top-0 left-0 right-0 h-4 bg-white rounded-b-[40px] z-10 hidden sm:block opacity-95" />
 
       {/* Subtle radial sunburst in the background */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-sky-300/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-sky-300/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 sm:pb-16 lg:pb-20 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -197,17 +216,8 @@ export const Hero: React.FC<HeroProps> = ({
               </div>
             </div>
 
-            {/* Desktop View: Perfectly reproduced from the original print */}
-            <div className="hidden lg:block relative w-full max-w-[520px] xl:max-w-[560px] -mb-12 sm:-mb-16 lg:-mb-20 self-end">
-              <div className="relative overflow-hidden drop-shadow-2xl">
-                <img
-                  src="/extracted/hero_contractor_desktop.png"
-                  alt="Profissional da AK Reformas e Manutenção Predial no Rio de Janeiro"
-                  className="w-full h-auto object-cover max-h-[530px] xl:max-h-[570px] drop-shadow-2xl"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-            </div>
+            {/* Desktop View: Dedicated column space allowing the integrated background artwork with contractor & building to stand out seamlessly */}
+            <div className="hidden lg:block relative w-full max-w-[520px] xl:max-w-[560px] min-h-[460px] xl:min-h-[520px] -mb-12 sm:-mb-16 lg:-mb-20 self-end pointer-events-none" />
 
           </div>
 

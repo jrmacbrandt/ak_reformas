@@ -54,6 +54,7 @@ export interface SiteLayersData {
     paragraph: string;
     buttonTitle: string;
     buttonSubtitle: string;
+    backgroundImage?: string;
   };
   servicesBar: {
     items: ServiceItem[];
@@ -107,6 +108,7 @@ export const initialSiteLayers: SiteLayersData = {
       'A AK Reformas e Manutenção Predial oferece soluções completas para seu prédio, empresa ou condomínio, com qualidade, segurança e o melhor custo-benefício.',
     buttonTitle: 'Fale Conosco Agora!',
     buttonSubtitle: 'Peça seu orçamento sem compromisso',
+    backgroundImage: '/extracted/header_bg.webp',
   },
   servicesBar: {
     items: [
