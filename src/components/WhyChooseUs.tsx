@@ -22,7 +22,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
   onSelectCard,
 }) => {
   return (
-    <section id="sobre-nos" className="relative z-20 -mt-4 sm:-mt-6 rounded-t-3xl sm:rounded-t-[40px] bg-white text-slate-800 py-12 sm:py-16 shadow-[0_-15px_30px_rgba(0,0,0,0.12)] scroll-mt-16 sm:scroll-mt-20 overflow-hidden">
+    <section id="sobre-nos" className="relative z-20 bg-white text-slate-800 py-12 sm:py-16 scroll-mt-20 overflow-hidden">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading: "Por que escolher a AK Reformas?" */}

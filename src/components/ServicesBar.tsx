@@ -42,7 +42,7 @@ export const ServicesBar: React.FC<ServicesBarProps> = ({
   };
 
   return (
-    <section id="servicos" className="relative z-20 -mt-4 sm:-mt-5 rounded-t-2xl sm:rounded-t-3xl bg-[#0b2447] text-white py-5 sm:py-6 border-t-2 border-sky-400/40 shadow-[0_-10px_25px_rgba(0,0,0,0.3)] scroll-mt-16 sm:scroll-mt-20">
+    <section id="servicos" className="relative z-20 rounded-t-3xl sm:rounded-t-[40px] bg-[#0b2447] text-white py-6 border-t-2 border-sky-400/50 shadow-[0_-25px_50px_rgba(0,0,0,0.5)] scroll-mt-20">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-0 divide-y sm:divide-y-0 md:divide-x divide-white/20 items-stretch">
           {items.map((item, idx) => (

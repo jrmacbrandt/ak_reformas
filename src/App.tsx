@@ -171,7 +171,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col relative selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col relative selection:bg-blue-600 selection:text-white overflow-x-clip">
       
       {/* Toast Notification when layers are saved */}
       {saveToast && (
