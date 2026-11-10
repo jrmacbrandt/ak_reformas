@@ -26,7 +26,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading: "Por que escolher a AK Reformas?" */}
-        <div className="mb-8 sm:mb-12">
+        <div className="mb-6 sm:mb-8">
           <h2 className="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl tracking-tight flex flex-wrap items-center gap-2">
             <span
               contentEditable={isEditable}
@@ -45,6 +45,31 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
               {titleHighlight}
             </span>
           </h2>
+        </div>
+
+        {/* SEO & AEO Authority Block: Definitive Entity Summary & Trust Credentials */}
+        <div className="mb-8 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-blue-50/80 via-sky-50/40 to-slate-50 border border-blue-100 shadow-xs">
+          <p className="text-sm sm:text-[15px] text-slate-700 leading-relaxed font-medium">
+            <strong className="text-slate-900 font-bold">A AK Reformas e Manutenção Predial</strong> é referência em engenharia civil e manutenção de edifícios no Estado do Rio de Janeiro. Especializada em restauração e pintura de fachadas prediais com alpinismo industrial (NR-35), impermeabilização e recuperação estrutural, oferecemos supervisão técnica contínua com <strong className="text-blue-800">emissão de ART/CREA</strong> e <strong className="text-blue-800">garantia formal de até 5 anos</strong>.
+          </p>
+          <div className="mt-3.5 pt-3 border-t border-blue-100/80 flex flex-wrap items-center gap-2.5 sm:gap-4 text-xs font-bold">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-100/70 text-blue-900">
+              <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+              Garantia de até 5 Anos
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-100/70 text-emerald-900">
+              <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
+              Técnicos Certificados NR-35 & NR-18
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-100/70 text-amber-900">
+              <span className="w-2 h-2 rounded-full bg-amber-600"></span>
+              Emissão de ART/CREA-RJ
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-200/70 text-slate-800">
+              <span className="w-2 h-2 rounded-full bg-slate-500"></span>
+              Cobertura em Todo o Rio de Janeiro
+            </span>
+          </div>
         </div>
 
         {/* 2-Column Split: Benefits Checklist on Left, 5-Card Angled Gallery on Right */}

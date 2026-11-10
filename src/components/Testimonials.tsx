@@ -18,7 +18,10 @@ export const Testimonials: React.FC<TestimonialsProps> = ({
   onUpdateTestimonials,
 }) => {
   return (
-    <section id="depoimentos" className="sticky top-0 z-10 py-16 sm:py-20 bg-[#0a2f60] text-white overflow-hidden scroll-mt-20">
+    <section
+      id="depoimentos"
+      className="sticky z-10 py-12 sm:py-16 pb-16 sm:pb-20 bg-[#0a2f60] text-white overflow-hidden scroll-mt-20 top-[calc(100vh-100%)] lg:top-0"
+    >
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[300px] bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
 

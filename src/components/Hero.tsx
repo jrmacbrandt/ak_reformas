@@ -33,7 +33,10 @@ export const Hero: React.FC<HeroProps> = ({
   onOpenQuoteModal,
 }) => {
   return (
-    <section id="inicio" className="sticky top-0 z-0 overflow-hidden bg-[#03214a] text-white min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] flex items-center w-full">
+    <section
+      id="inicio"
+      className="sticky z-0 overflow-hidden bg-[#03214a] text-white min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] flex items-center w-full top-[calc(100vh-100%)] lg:top-0"
+    >
       {/* Background Container anchored to the RIGHT, scaling to 100% height without any cropping of helmet or yellow badge */}
       <div className="absolute inset-0 z-0 flex justify-end overflow-hidden bg-[#03214a] pointer-events-none select-none">
         <picture className="h-full flex justify-end shrink-0">
@@ -62,6 +65,12 @@ export const Hero: React.FC<HeroProps> = ({
           {/* Left Column: Headlines, Paragraph, and Yellow CTA Button */}
           <div className="lg:col-span-7 z-20 pt-2 lg:pt-6 text-center lg:text-left">
             
+            {/* Visual SEO & Geo Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-[11px] sm:text-xs font-bold tracking-wide uppercase mb-2 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse"></span>
+              <span>Rio de Janeiro · Alpinismo Industrial NR-35 · Pintura de Fachadas</span>
+            </div>
+
             {/* Angled headline container matching original flyer tilt of -6.8 degrees */}
             <div
               style={{
@@ -204,8 +213,8 @@ export const Hero: React.FC<HeroProps> = ({
           {/* Right Column: Hero Contractor + Modern Balcony Building Visual */}
           <div className="lg:col-span-5 relative mt-4 lg:mt-0 flex justify-center lg:justify-end items-end">
 
-            {/* Mobile View: Kept 100% exactly as requested by user */}
-            <div className="block lg:hidden relative w-full max-w-[420px] sm:max-w-[460px]">
+            {/* Mobile View: Dedicated space allowing the worker photo to be fully viewed before next section rises */}
+            <div className="block lg:hidden relative w-full max-w-[420px] sm:max-w-[460px] pb-6 sm:pb-8">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20">
                 <img
                   src="/extracted/hero_contractor_full.png"
