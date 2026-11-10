@@ -104,7 +104,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
                     {/* Bottom Dark Blue Label Badge (Pure HTML text layer) */}
                     <div className="p-2 bg-white">
                       <div className="bg-[#0b2b52] group-hover:bg-[#0070f3] text-white py-1.5 px-2 rounded-xl text-center shadow transition-colors">
-                        <span
+                        <h3
                           contentEditable={isEditable}
                           suppressContentEditableWarning
                           onClick={(e) => isEditable && e.stopPropagation()}
@@ -116,12 +116,12 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
                               onUpdateWhyChoose('showcase', next);
                             }
                           }}
-                          className={`block text-[11px] sm:text-xs font-bold tracking-tight leading-tight whitespace-normal ${
+                          className={`block text-[11px] sm:text-xs font-bold tracking-tight leading-tight whitespace-normal m-0 ${
                             isEditable ? 'outline-dashed outline-1 outline-yellow-400 px-1' : ''
                           }`}
                         >
                           {card.title}
-                        </span>
+                        </h3>
                       </div>
                     </div>
                   </div>

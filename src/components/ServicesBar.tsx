@@ -54,7 +54,7 @@ export const ServicesBar: React.FC<ServicesBarProps> = ({
               <div className="mb-2 p-1 text-white shrink-0">
                 {getServiceIcon(item.icon)}
               </div>
-              <span
+              <h3
                 contentEditable={isEditable}
                 suppressContentEditableWarning
                 onClick={(e) => isEditable && e.stopPropagation()}
@@ -66,12 +66,12 @@ export const ServicesBar: React.FC<ServicesBarProps> = ({
                     onUpdateServices(next);
                   }
                 }}
-                className={`text-xs sm:text-sm font-bold tracking-tight text-white max-w-[180px] leading-snug transition-colors group-hover:text-sky-300 ${
+                className={`text-xs sm:text-sm font-bold tracking-tight text-white max-w-[180px] leading-snug transition-colors group-hover:text-sky-300 m-0 ${
                   isEditable ? 'outline-dashed outline-1 outline-yellow-400 px-1 bg-white/10' : ''
                 }`}
               >
                 {item.title}
-              </span>
+              </h3>
             </div>
           ))}
         </div>

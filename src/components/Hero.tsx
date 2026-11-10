@@ -71,6 +71,10 @@ export const Hero: React.FC<HeroProps> = ({
               className="inline-block transition-transform duration-200 mt-2 sm:mt-4 mb-3 sm:mb-4 px-1"
             >
               <h1 className="font-display font-black tracking-tight leading-[0.98] sm:leading-[1.0] text-hero-shadow">
+                {/* Accessible Geo-Targeted Context for Googlebot & Screen Readers */}
+                <span className="sr-only">
+                  AK Reformas e Manutenção Predial: Restauração de Fachadas, Pintura Externa e Alpinismo Industrial NR-35 no Rio de Janeiro
+                </span>
                 
                 {/* Line 1: Transformando */}
                 <span
