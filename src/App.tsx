@@ -286,6 +286,7 @@ export default function App() {
         onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
         onToggleOriginalComparison={() => setIsComparing(true)}
         isComparing={isComparing}
+        showEditTools={false}
       />
 
       {/* Layer Management Drawer */}
