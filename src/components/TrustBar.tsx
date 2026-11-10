@@ -29,7 +29,7 @@ export const TrustBar: React.FC<TrustBarProps> = ({
   };
 
   return (
-    <section className="bg-[#eef4fa] border-y border-slate-200/80 py-5 sm:py-6">
+    <section className="relative z-20 bg-[#eef4fa] border-y border-slate-200/80 py-5 sm:py-6">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-0 divide-y sm:divide-y-0 md:divide-x divide-slate-300">
           {items.map((item, idx) => (

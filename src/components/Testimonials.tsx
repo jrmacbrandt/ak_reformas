@@ -17,10 +17,55 @@ export const Testimonials: React.FC<TestimonialsProps> = ({
   isEditable = false,
   onUpdateTestimonials,
 }) => {
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const [stickyTop, setStickyTop] = React.useState<string>('0px');
+
+  React.useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const updateSticky = () => {
+      if (!sectionRef.current) return;
+      if (window.innerWidth < 1024) {
+        const height = sectionRef.current.offsetHeight;
+        const vh = window.innerHeight;
+        // On mobile, pin only when all 3 testimonials have scrolled into full view
+        // so the 3rd card is never clipped before FAQ rises
+        if (height > vh) {
+          setStickyTop(`${vh - height}px`);
+        } else {
+          setStickyTop('0px');
+        }
+      } else {
+        setStickyTop('0px');
+      }
+    };
+
+    updateSticky();
+    window.addEventListener('resize', updateSticky, { passive: true });
+    window.addEventListener('orientationchange', updateSticky, { passive: true });
+
+    let observer: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      observer = new ResizeObserver(() => {
+        updateSticky();
+      });
+      observer.observe(el);
+    }
+
+    return () => {
+      window.removeEventListener('resize', updateSticky);
+      window.removeEventListener('orientationchange', updateSticky);
+      if (observer) observer.disconnect();
+    };
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="depoimentos"
-      className="relative lg:sticky lg:top-0 z-10 py-12 sm:py-16 pb-16 sm:pb-24 bg-[#0a2f60] text-white scroll-mt-20"
+      style={{ top: stickyTop }}
+      className="sticky z-10 py-12 sm:py-16 pb-16 sm:pb-24 bg-[#0a2f60] text-white scroll-mt-20"
     >
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[300px] bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />

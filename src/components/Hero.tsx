@@ -32,10 +32,56 @@ export const Hero: React.FC<HeroProps> = ({
   onUpdateHero,
   onOpenQuoteModal,
 }) => {
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const [stickyTop, setStickyTop] = React.useState<string>('0px');
+
+  React.useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const updateSticky = () => {
+      if (!sectionRef.current) return;
+      if (window.innerWidth < 1024) {
+        const height = sectionRef.current.offsetHeight;
+        const vh = window.innerHeight;
+        // On mobile, if the hero is taller than the viewport, pin it only when its bottom
+        // (including the contractor photo) has reached the viewport bottom.
+        // This ensures the entire worker photo is fully visible before ServicesBar slides over.
+        if (height > vh) {
+          setStickyTop(`${vh - height}px`);
+        } else {
+          setStickyTop('0px');
+        }
+      } else {
+        setStickyTop('0px');
+      }
+    };
+
+    updateSticky();
+    window.addEventListener('resize', updateSticky, { passive: true });
+    window.addEventListener('orientationchange', updateSticky, { passive: true });
+
+    let observer: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      observer = new ResizeObserver(() => {
+        updateSticky();
+      });
+      observer.observe(el);
+    }
+
+    return () => {
+      window.removeEventListener('resize', updateSticky);
+      window.removeEventListener('orientationchange', updateSticky);
+      if (observer) observer.disconnect();
+    };
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="inicio"
-      className="relative lg:sticky lg:top-0 z-0 bg-[#03214a] text-white min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] flex items-center w-full"
+      style={{ top: stickyTop }}
+      className="sticky z-0 bg-[#03214a] text-white min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] flex items-center w-full"
     >
       {/* Background Container anchored to the RIGHT, scaling to 100% height without any cropping of helmet or yellow badge */}
       <div className="absolute inset-0 z-0 flex justify-end overflow-hidden bg-[#03214a] pointer-events-none select-none">
