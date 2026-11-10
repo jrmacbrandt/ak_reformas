@@ -94,3 +94,4 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({ onOpenCookiesPolic
     </aside>
   );
 };
+
