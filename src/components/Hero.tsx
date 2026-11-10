@@ -33,31 +33,27 @@ export const Hero: React.FC<HeroProps> = ({
   onOpenQuoteModal,
 }) => {
   return (
-    <section id="inicio" className="relative overflow-hidden bg-[#023373] text-white">
-      {/* Background WebP Image */}
-      <div className="absolute inset-0 z-0">
-        <picture>
+    <section id="inicio" className="relative overflow-hidden bg-[#03214a] text-white min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] flex items-center">
+      {/* Background Container anchored to the RIGHT, scaling to 100% height without any cropping of helmet or yellow badge */}
+      <div className="absolute inset-0 z-0 flex justify-end overflow-hidden bg-[#03214a] pointer-events-none select-none">
+        <picture className="h-full flex justify-end shrink-0">
           <source media="(max-width: 768px)" srcSet="/extracted/header_bg_mobile.webp" type="image/webp" />
           <source media="(min-width: 769px)" srcSet={backgroundImage} type="image/webp" />
           <img
             src={backgroundImage}
             alt="AK Reformas e Manutenção Predial Fundo Header"
-            className="w-full h-full object-cover object-right lg:object-center"
+            className="h-full w-auto max-w-none object-contain object-right"
             loading="eager"
             fetchPriority="high"
           />
         </picture>
-        {/* Soft gradient overlay on left for 100% text contrast and readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#022859]/90 via-[#033b7b]/55 to-transparent pointer-events-none" />
+        {/* Seamless left-side blend ensuring ultra-wide screens fade smoothly into #03214a */}
+        <div className="absolute inset-y-0 left-0 w-32 sm:w-72 bg-gradient-to-r from-[#03214a] to-transparent pointer-events-none" />
+        {/* Soft overlay on mobile to ensure perfect text contrast */}
+        <div className="absolute inset-0 bg-[#03214a]/60 lg:hidden pointer-events-none" />
       </div>
 
-      {/* Top curved wave separator */}
-      <div className="absolute top-0 left-0 right-0 h-4 bg-white rounded-b-[40px] z-10 hidden sm:block opacity-95" />
-
-      {/* Subtle radial sunburst in the background */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-sky-300/15 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 sm:pb-16 lg:pb-20 relative">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 sm:pb-16 lg:pb-20 relative w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Left Column: Headlines, Paragraph, and Yellow CTA Button */}
@@ -217,7 +213,7 @@ export const Hero: React.FC<HeroProps> = ({
             </div>
 
             {/* Desktop View: Dedicated column space allowing the integrated background artwork with contractor & building to stand out seamlessly */}
-            <div className="hidden lg:block relative w-full max-w-[520px] xl:max-w-[560px] min-h-[460px] xl:min-h-[520px] -mb-12 sm:-mb-16 lg:-mb-20 self-end pointer-events-none" />
+            <div className="hidden lg:block relative w-full max-w-[500px] xl:max-w-[560px] min-h-[480px] xl:min-h-[540px] pointer-events-none" />
 
           </div>
 
