@@ -36,7 +36,7 @@ export const Hero: React.FC<HeroProps> = ({
     <section id="inicio" className="relative overflow-hidden bg-[#03214a] text-white min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] flex items-center">
       {/* Background Container anchored to the RIGHT, scaling to 100% height without any cropping of helmet or yellow badge */}
       <div className="absolute inset-0 z-0 flex justify-end overflow-hidden bg-[#03214a] pointer-events-none select-none">
-        <picture className="h-full flex justify-end shrink-0 pr-0 sm:pr-2 lg:pr-4">
+        <picture className="h-full flex justify-end shrink-0">
           <source media="(max-width: 768px)" srcSet="/extracted/header_bg_mobile.webp" type="image/webp" />
           <source media="(min-width: 769px)" srcSet={backgroundImage} type="image/webp" />
           <img

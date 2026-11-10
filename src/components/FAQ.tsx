@@ -226,3 +226,4 @@ export const FAQ: React.FC<FAQProps> = ({ onOpenQuoteModal }) => {
     </section>
   );
 };
+
