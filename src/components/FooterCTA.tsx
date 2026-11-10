@@ -170,7 +170,7 @@ export const FooterCTA: React.FC<FooterCTAProps> = ({
               
               {/* WhatsApp */}
               <a
-                href="https://wa.me/5521999999999"
+                href="https://wa.me/5521994780582"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 hover:bg-[#25D366] text-white transition-all border border-white/20 hover:border-transparent text-xs font-semibold shadow-xs"

@@ -72,6 +72,20 @@ export const LegalModal: React.FC<LegalModalProps> = ({
 
   if (!isOpen) return null;
 
+  const formatPhoneBR = (value: string): string => {
+    const numbers = value.replace(/\D/g, '').slice(0, 11);
+    if (numbers.length <= 2) {
+      return numbers.length > 0 ? `(${numbers}` : '';
+    }
+    if (numbers.length <= 6) {
+      return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
+    }
+    if (numbers.length <= 10) {
+      return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 6)}-${numbers.slice(6)}`;
+    }
+    return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
+  };
+
   const handleReturnHome = () => {
     onClose();
     const homeEl = document.getElementById('inicio');
@@ -85,7 +99,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
     const encodedMsg = encodeURIComponent(
       `Olá! Meu nome é ${contactName}.\nTipo de Imóvel: ${contactType}\nTelefone: ${contactPhone}\nE-mail: ${contactEmail}\n\nMensagem: ${contactMessage}`
     );
-    window.open(`https://wa.me/5521999999999?text=${encodedMsg}`, '_blank');
+    window.open(`https://wa.me/5521994780582?text=${encodedMsg}`, '_blank');
     setContactSent(true);
   };
 
@@ -476,8 +490,8 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                       </div>
                       <div>
                         <p className="font-bold text-slate-900">WhatsApp Comercial</p>
-                        <a href="https://wa.me/5521999999999" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:underline font-semibold">
-                          (21) 99999-9999
+                        <a href="https://wa.me/5521994780582" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:underline font-semibold">
+                          (21) 99478-0582
                         </a>
                       </div>
                     </div>
@@ -537,8 +551,8 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                             type="tel"
                             required
                             value={contactPhone}
-                            onChange={(e) => setContactPhone(e.target.value)}
-                            placeholder="(21) 99999-9999"
+                            onChange={(e) => setContactPhone(formatPhoneBR(e.target.value))}
+                            placeholder="(21) 99478-0582"
                             className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white"
                           />
                         </div>

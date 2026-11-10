@@ -47,6 +47,10 @@ export default function App() {
             ...initialSiteLayers.header,
             ...parsed.header,
             navItems: finalNavItems,
+            whatsappNumber:
+              parsed.header?.whatsappNumber && parsed.header.whatsappNumber !== '5521999999999'
+                ? parsed.header.whatsappNumber
+                : '5521994780582',
           },
           hero: {
             ...initialSiteLayers.hero,

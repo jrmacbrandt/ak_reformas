@@ -96,7 +96,7 @@ export const initialSiteLayers: SiteLayersData = {
       { id: 'nav-5', label: 'Contato', icon: 'mail', href: '#contato' },
     ],
     ctaButton: 'Solicite seu Orçamento',
-    whatsappNumber: '5521999999999',
+    whatsappNumber: '5521994780582',
   },
   hero: {
     badgeText: 'Qualidade em cada detalhe!',

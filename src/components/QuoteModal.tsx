@@ -12,7 +12,7 @@ interface QuoteModalProps {
 export const QuoteModal: React.FC<QuoteModalProps> = ({
   isOpen,
   onClose,
-  whatsappNumber = '5521999999999',
+  whatsappNumber = '5521994780582',
   defaultService = 'Pintura de Fachadas e Áreas Externas',
 }) => {
   const [name, setName] = useState('');
@@ -22,6 +22,20 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   const [neighborhood, setNeighborhood] = useState('');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+
+  const formatPhoneBR = (value: string): string => {
+    const numbers = value.replace(/\D/g, '').slice(0, 11);
+    if (numbers.length <= 2) {
+      return numbers.length > 0 ? `(${numbers}` : '';
+    }
+    if (numbers.length <= 6) {
+      return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
+    }
+    if (numbers.length <= 10) {
+      return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 6)}-${numbers.slice(6)}`;
+    }
+    return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
+  };
 
   if (!isOpen) return null;
 
@@ -140,8 +154,8 @@ Aguardo contato da equipe especializada!`;
                       type="tel"
                       required
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="(21) 99999-9999"
+                      onChange={(e) => setPhone(formatPhoneBR(e.target.value))}
+                      placeholder="(21) 99478-0582"
                       className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-blue-600 transition-all font-medium"
                     />
                   </div>
