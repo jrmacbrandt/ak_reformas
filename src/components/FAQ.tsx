@@ -72,7 +72,7 @@ interface FAQProps {
 }
 
 export const FAQ: React.FC<FAQProps> = ({ onOpenQuoteModal }) => {
-  const [openId, setOpenId] = useState<string>('faq-1');
+  const [openId, setOpenId] = useState<string>('');
   const [filterCategory, setFilterCategory] = useState<string>('todos');
 
   const toggleItem = (id: string) => {

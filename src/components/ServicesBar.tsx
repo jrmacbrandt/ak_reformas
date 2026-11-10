@@ -44,14 +44,14 @@ export const ServicesBar: React.FC<ServicesBarProps> = ({
   return (
     <section id="servicos" className="bg-[#0b2447] text-white py-5 sm:py-6 border-y-2 border-sky-400/30 shadow-lg">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-0 divide-y sm:divide-y-0 md:divide-x divide-white/20">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-0 divide-y sm:divide-y-0 md:divide-x divide-white/20 items-stretch">
           {items.map((item, idx) => (
             <div
               key={item.id}
               onClick={() => onSelectService && onSelectService(item)}
-              className="group flex flex-col items-center justify-center text-center px-3 py-3 sm:py-2 cursor-pointer hover:bg-white/5 transition-colors rounded-lg md:rounded-none"
+              className="group flex flex-col items-center justify-start text-center px-3 py-3 sm:py-2 cursor-pointer hover:bg-white/5 transition-colors rounded-lg md:rounded-none h-full"
             >
-              <div className="mb-2 p-1 text-white">
+              <div className="mb-2 p-1 text-white shrink-0">
                 {getServiceIcon(item.icon)}
               </div>
               <span

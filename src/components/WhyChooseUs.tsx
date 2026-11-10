@@ -75,9 +75,9 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
             ))}
           </div>
 
-          {/* Right Column: 6 Perspective Showcase Cards */}
+          {/* Right Column: 6 Perspective Showcase Cards aligned to the top */}
           <div className="lg:col-span-8">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 items-end">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 items-start">
               {showcase.map((card, idx) => (
                 <div
                   key={card.id}
