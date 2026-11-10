@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavItem } from '../types/layers';
 import { AKBrandLogo, WhatsAppIcon } from './Icons';
-import { Home, Wrench, Users, Star, Mail, Menu, X, ChevronRight } from 'lucide-react';
+import { Home, Wrench, Users, Star, Mail, Menu, X, ChevronRight, HelpCircle } from 'lucide-react';
 
 interface HeaderProps {
   brandTagline: string;
@@ -42,6 +42,9 @@ export const Header: React.FC<HeaderProps> = ({
         return <Star className={iconClass} />;
       case 'mail':
         return <Mail className={iconClass} />;
+      case 'help':
+      case 'faq':
+        return <HelpCircle className={iconClass} />;
       default:
         return <Home className={iconClass} />;
     }

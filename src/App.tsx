@@ -14,6 +14,8 @@ import { FloatingTools } from './components/FloatingTools';
 import { OriginalComparisonModal } from './components/OriginalComparisonModal';
 import { LegalModal, LegalTab } from './components/LegalModal';
 import { CookieConsent } from './components/CookieConsent';
+import { Breadcrumbs } from './components/Breadcrumbs';
+import { FAQ } from './components/FAQ';
 
 export default function App() {
   // Load saved layers from localStorage if available, otherwise use initialSiteLayers
@@ -35,8 +37,8 @@ export default function App() {
           : initialSiteLayers.servicesBar.items;
 
         const savedNav: any[] = parsed.header?.navItems || [];
-        const hasExact4 = savedNav.length === 4 && savedNav[0]?.label === 'Home';
-        const finalNavItems = hasExact4 ? savedNav : initialSiteLayers.header.navItems;
+        const hasValidNav = savedNav.length >= 5 && savedNav.some((n: any) => n.href === '#faq');
+        const finalNavItems = hasValidNav ? savedNav : initialSiteLayers.header.navItems;
 
         return {
           ...initialSiteLayers,
@@ -195,6 +197,9 @@ export default function App() {
         onOpenQuoteModal={() => setIsQuoteModalOpen(true)}
       />
 
+      {/* Structural Breadcrumbs Navigation with Schema.org JSON-LD */}
+      <Breadcrumbs currentSection="Pintura e Manutenção Predial no RJ" />
+
       {/* Main Content Sections */}
       <main className="flex-1">
         
@@ -249,6 +254,9 @@ export default function App() {
           isEditable={isDirectEditMode}
           onUpdateTestimonials={handleUpdateTestimonials}
         />
+
+        {/* 6.1 Interactive FAQ Section with Schema.org FAQPage Rich Snippets */}
+        <FAQ onOpenQuoteModal={() => setIsQuoteModalOpen(true)} />
 
         {/* 7. Footer CTA (Rio de Janeiro Skyline, Final CTA button, Regional coverage, AK Brand Logo) */}
         <FooterCTA

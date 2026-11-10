@@ -1,7 +1,7 @@
 export interface NavItem {
   id: string;
   label: string;
-  icon: 'home' | 'wrench' | 'users' | 'star' | 'mail';
+  icon: 'home' | 'wrench' | 'users' | 'star' | 'mail' | 'help';
   href: string;
 }
 
@@ -92,7 +92,8 @@ export const initialSiteLayers: SiteLayersData = {
       { id: 'nav-1', label: 'Home', icon: 'home', href: '#inicio' },
       { id: 'nav-2', label: 'Quem Somos', icon: 'users', href: '#sobre-nos' },
       { id: 'nav-3', label: 'Serviços', icon: 'wrench', href: '#servicos' },
-      { id: 'nav-4', label: 'Contato', icon: 'mail', href: '#contato' },
+      { id: 'nav-4', label: 'Dúvidas (FAQ)', icon: 'help', href: '#faq' },
+      { id: 'nav-5', label: 'Contato', icon: 'mail', href: '#contato' },
     ],
     ctaButton: 'Solicite seu Orçamento',
     whatsappNumber: '5521999999999',

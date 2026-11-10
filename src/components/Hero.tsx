@@ -36,15 +36,18 @@ export const Hero: React.FC<HeroProps> = ({
     <section id="inicio" className="relative overflow-hidden bg-[#03214a] text-white min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] flex items-center">
       {/* Background Container anchored to the RIGHT, scaling to 100% height without any cropping of helmet or yellow badge */}
       <div className="absolute inset-0 z-0 flex justify-end overflow-hidden bg-[#03214a] pointer-events-none select-none">
-        <picture className="h-full flex justify-end shrink-0">
+        <picture className="h-full flex justify-end shrink-0 pr-0 sm:pr-2 lg:pr-4">
           <source media="(max-width: 768px)" srcSet="/extracted/header_bg_mobile.webp" type="image/webp" />
           <source media="(min-width: 769px)" srcSet={backgroundImage} type="image/webp" />
           <img
             src={backgroundImage}
-            alt="AK Reformas e Manutenção Predial Fundo Header"
+            alt="AK Reformas e Manutenção Predial no Rio de Janeiro - Alpinismo Industrial e Pintura de Fachadas"
             className="h-full w-auto max-w-none object-contain object-right"
             loading="eager"
             fetchPriority="high"
+            decoding="async"
+            width={2008}
+            height={704}
           />
         </picture>
         {/* Seamless left-side blend ensuring ultra-wide screens fade smoothly into #03214a */}
@@ -202,9 +205,12 @@ export const Hero: React.FC<HeroProps> = ({
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20">
                 <img
                   src="/extracted/hero_contractor_full.png"
-                  alt="Profissional da AK Reformas com capacete de proteção e polegar positivo em frente a edifício residencial moderno"
+                  alt="Profissional da AK Reformas com capacete de proteção e polegar positivo em frente a edifício residencial moderno no Rio de Janeiro"
                   className="w-full h-auto object-cover max-h-[460px] sm:max-h-[500px]"
-                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
+                  width={448}
+                  height={448}
                 />
                 
                 {/* Soft gradient bottom blend */}

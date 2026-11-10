@@ -26,8 +26,12 @@ export const ShowcaseModal: React.FC<ShowcaseModalProps> = ({
         <div className="relative h-64 sm:h-72 w-full bg-slate-900 overflow-hidden shrink-0">
           <img
             src={card.image}
-            alt={card.title}
+            alt={`${card.title} - Serviço de Engenharia e Reforma AK Reformas`}
             className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+            width={600}
+            height={300}
             referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/30" />

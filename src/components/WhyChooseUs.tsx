@@ -91,9 +91,12 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({
                     <div className="h-44 sm:h-52 w-full overflow-hidden bg-slate-200 relative">
                       <img
                         src={card.image}
-                        alt={card.title}
+                        alt={`${card.title} - Serviço especializado de engenharia e reforma predial da AK Reformas RJ`}
                         className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
-                        referrerPolicy="no-referrer"
+                        loading="lazy"
+                        decoding="async"
+                        width={400}
+                        height={260}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
                     </div>

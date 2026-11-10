@@ -1,7 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { X, ShieldCheck, FileText, Printer, CheckCircle2, Building2, Phone, Mail, MapPin, Cookie } from 'lucide-react';
+import {
+  X,
+  ShieldCheck,
+  FileText,
+  Printer,
+  CheckCircle2,
+  Building2,
+  Phone,
+  Mail,
+  MapPin,
+  Cookie,
+  Users,
+  Megaphone,
+  ArrowLeft,
+  Calendar,
+  Send,
+  Sparkles,
+} from 'lucide-react';
 
-export type LegalTab = 'privacy' | 'terms' | 'cookies';
+export type LegalTab = 'privacy' | 'terms' | 'cookies' | 'about' | 'advertising' | 'contact';
 
 interface LegalModalProps {
   isOpen: boolean;
@@ -17,6 +34,14 @@ export const LegalModal: React.FC<LegalModalProps> = ({
   onOpenQuoteModal,
 }) => {
   const [activeTab, setActiveTab] = useState<LegalTab>(initialTab);
+
+  // Contact form state
+  const [contactName, setContactName] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactPhone, setContactPhone] = useState('');
+  const [contactType, setContactType] = useState('Condomínio Residencial');
+  const [contactMessage, setContactMessage] = useState('');
+  const [contactSent, setContactSent] = useState(false);
 
   useEffect(() => {
     setActiveTab(initialTab);
@@ -47,9 +72,28 @@ export const LegalModal: React.FC<LegalModalProps> = ({
 
   if (!isOpen) return null;
 
+  const handleReturnHome = () => {
+    onClose();
+    const homeEl = document.getElementById('inicio');
+    if (homeEl) {
+      homeEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const encodedMsg = encodeURIComponent(
+      `Olá! Meu nome é ${contactName}.\nTipo de Imóvel: ${contactType}\nTelefone: ${contactPhone}\nE-mail: ${contactEmail}\n\nMensagem: ${contactMessage}`
+    );
+    window.open(`https://wa.me/5521999999999?text=${encodedMsg}`, '_blank');
+    setContactSent(true);
+  };
+
+  const updateDateString = 'Novembro de 2026';
+
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-200"
       role="dialog"
       aria-modal="true"
       aria-labelledby="legal-modal-title"
@@ -66,15 +110,21 @@ export const LegalModal: React.FC<LegalModalProps> = ({
               {activeTab === 'privacy' && <ShieldCheck className="w-5 h-5 text-yellow-300" />}
               {activeTab === 'terms' && <FileText className="w-5 h-5 text-yellow-300" />}
               {activeTab === 'cookies' && <Cookie className="w-5 h-5 text-yellow-300" />}
+              {activeTab === 'about' && <Users className="w-5 h-5 text-yellow-300" />}
+              {activeTab === 'advertising' && <Megaphone className="w-5 h-5 text-yellow-300" />}
+              {activeTab === 'contact' && <Mail className="w-5 h-5 text-yellow-300" />}
             </div>
             <div>
               <h2 id="legal-modal-title" className="text-lg sm:text-xl font-bold font-display tracking-tight text-white">
                 {activeTab === 'privacy' && 'Política de Privacidade'}
                 {activeTab === 'terms' && 'Termos de Uso e Condições'}
                 {activeTab === 'cookies' && 'Política de Cookies'}
+                {activeTab === 'about' && 'Sobre Nós · AK Reformas'}
+                {activeTab === 'advertising' && 'Publicidade e Transparência'}
+                {activeTab === 'contact' && 'Contato e Fale Conosco'}
               </h2>
               <p className="text-xs text-white/80">
-                AK Reformas e Manutenção Predial · Transparência e Segurança Jurídica
+                AK Reformas e Manutenção Predial · Engenharia, Transparência e Segurança
               </p>
             </div>
           </div>
@@ -99,46 +149,54 @@ export const LegalModal: React.FC<LegalModalProps> = ({
         </div>
 
         {/* Tab Switcher */}
-        <div className="bg-slate-100 border-b border-slate-200 px-5 sm:px-8 py-2.5 flex items-center gap-2 shrink-0 overflow-x-auto">
+        <div className="bg-slate-100 border-b border-slate-200 px-4 sm:px-6 py-2 flex items-center gap-1.5 shrink-0 overflow-x-auto no-scrollbar">
+          {[
+            { id: 'privacy', label: 'Privacidade', icon: ShieldCheck },
+            { id: 'terms', label: 'Termos de Uso', icon: FileText },
+            { id: 'cookies', label: 'Cookies', icon: Cookie },
+            { id: 'about', label: 'Sobre Nós', icon: Users },
+            { id: 'advertising', label: 'Publicidade', icon: Megaphone },
+            { id: 'contact', label: 'Fale Conosco', icon: Mail },
+          ].map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as LegalTab)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
+                  isActive
+                    ? 'bg-white text-blue-700 shadow-sm border border-slate-200'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                }`}
+              >
+                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-blue-600' : 'text-slate-500'}`} />
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Universal Sub-bar with "Voltar para o Início" + "Última Atualização" */}
+        <div className="bg-slate-50 border-b border-slate-200/80 px-5 sm:px-8 py-2.5 flex items-center justify-between text-xs text-slate-600 gap-2 flex-wrap shrink-0">
           <button
-            onClick={() => setActiveTab('privacy')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === 'privacy'
-                ? 'bg-white text-blue-700 shadow-sm border border-slate-200'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-            }`}
+            onClick={handleReturnHome}
+            className="flex items-center gap-1.5 font-bold text-blue-700 hover:text-blue-900 transition-colors cursor-pointer"
           >
-            <ShieldCheck className="w-4 h-4 text-blue-600" />
-            <span>Política de Privacidade</span>
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Voltar para o Início (Home)</span>
           </button>
-          <button
-            onClick={() => setActiveTab('terms')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === 'terms'
-                ? 'bg-white text-blue-700 shadow-sm border border-slate-200'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-            }`}
-          >
-            <FileText className="w-4 h-4 text-blue-600" />
-            <span>Termos de Uso</span>
-          </button>
-          <button
-            onClick={() => setActiveTab('cookies')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === 'cookies'
-                ? 'bg-white text-blue-700 shadow-sm border border-slate-200'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-            }`}
-          >
-            <Cookie className="w-4 h-4 text-blue-600" />
-            <span>Política de Cookies</span>
-          </button>
+          <div className="flex items-center gap-1.5 font-medium text-slate-500">
+            <Calendar className="w-3.5 h-3.5 text-slate-400" />
+            <span>Última atualização: <strong>{updateDateString}</strong></span>
+          </div>
         </div>
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto px-5 sm:px-8 py-6 text-sm leading-relaxed text-slate-700 space-y-6">
+          
+          {/* ================= 1. POLÍTICA DE PRIVACIDADE ================= */}
           {activeTab === 'privacy' && (
-            /* ================= POLÍTICA DE PRIVACIDADE ================= */
             <div className="space-y-6 animate-in fade-in duration-150">
               <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-xs text-blue-900 flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
@@ -171,7 +229,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                   <li>Elaboração, envio e acompanhamento de propostas comerciais e orçamentos sem compromisso;</li>
                   <li>Agendamento de vistorias técnicas presenciais por nossos peritos e engenheiros;</li>
                   <li>Comunicação operacional sobre o andamento de projetos contratados;</li>
-                  <li>Emissão de notas fiscais, contratos de prestação de serviços e laudos técnicos de engenharia (ART/RRT quando aplicável);</li>
+                  <li>Emissão de notas fiscais, contratos de prestação de serviços e laudos técnicos de engenharia (ART/RRT junto ao CREA-RJ);</li>
                   <li>Cumprimento de exigências legais e normas técnicas vigentes (ABNT e Normas Regulamentadoras NR-35 e NR-18).</li>
                 </ul>
               </section>
@@ -193,30 +251,14 @@ export const LegalModal: React.FC<LegalModalProps> = ({
               <section className="space-y-2">
                 <h3 className="text-base font-bold text-slate-900 font-display">5. Direitos do Titular de Dados</h3>
                 <p>
-                  Em atendimento ao Artigo 18 da LGPD, você pode a qualquer momento solicitar:
+                  Em atendimento ao Artigo 18 da LGPD, você pode a qualquer momento solicitar confirmação da existência de tratamento, correção de dados ou revogação de consentimento através do e-mail <strong>contato@akreformas.com.br</strong>.
                 </p>
-                <ul className="list-disc pl-5 space-y-1 text-slate-600">
-                  <li>Confirmação da existência de tratamento de seus dados pessoais;</li>
-                  <li>Acesso aos dados e correção de dados incompletos ou desatualizados;</li>
-                  <li>Eliminação dos dados pessoais tratados mediante consentimento anterior;</li>
-                  <li>Revogação do consentimento para recebimento de comunicações.</li>
-                </ul>
-              </section>
-
-              <section className="space-y-2">
-                <h3 className="text-base font-bold text-slate-900 font-display">6. Contato com o Encarregado de Dados</h3>
-                <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs space-y-1.5 text-slate-600">
-                  <p className="font-semibold text-slate-900">AK Reformas e Manutenção Predial</p>
-                  <p className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5 text-blue-600" /> Atendimento em todo o Rio de Janeiro - RJ</p>
-                  <p className="flex items-center gap-2"><Phone className="w-3.5 h-3.5 text-blue-600" /> WhatsApp Comercial: (21) 99999-9999</p>
-                  <p className="flex items-center gap-2"><Mail className="w-3.5 h-3.5 text-blue-600" /> E-mail: contato@akreformas.com.br</p>
-                </div>
               </section>
             </div>
           )}
 
+          {/* ================= 2. TERMOS DE USO ================= */}
           {activeTab === 'terms' && (
-            /* ================= TERMOS DE USO ================= */
             <div className="space-y-6 animate-in fade-in duration-150">
               <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-amber-900 flex items-start gap-3">
                 <Building2 className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
@@ -245,40 +287,28 @@ export const LegalModal: React.FC<LegalModalProps> = ({
               <section className="space-y-2">
                 <h3 className="text-base font-bold text-slate-900 font-display">3. Normas de Segurança do Trabalho e NR-35</h3>
                 <p>
-                  Todas as atividades de trabalho em altura (fachadas prediais, limpeza de vidros, hidrojateamento, ancoragem e restauração) são realizadas em estrita conformidade com:
+                  Todas as atividades de trabalho em altura (fachadas prediais, limpeza de vidros, hidrojateamento, ancoragem e restauração) são realizadas em estrita conformidade com a <strong>NR-35</strong> (Trabalho em Altura com EPI/EPC certificados) e a <strong>NR-18</strong> (Condições de segurança na indústria da construção).
                 </p>
-                <ul className="list-disc pl-5 space-y-1 text-slate-600">
-                  <li><strong>NR-35:</strong> Trabalho em Altura com equipamentos de proteção individual (EPI) e coletiva (EPC) testados e inspecionados periodicamente;</li>
-                  <li><strong>NR-18:</strong> Condições de segurança e saúde no trabalho na indústria da construção;</li>
-                  <li><strong>NR-06:</strong> Utilização obrigatória de EPIs com Certificado de Aprovação (CA) válido.</li>
-                </ul>
               </section>
 
               <section className="space-y-2">
                 <h3 className="text-base font-bold text-slate-900 font-display">4. Garantia dos Serviços e Qualidade dos Materiais</h3>
                 <p>
-                  A AK Reformas assegura garantia formal sobre todos os serviços executados conforme estipulado no contrato de prestação de serviços, além das disposições do Código de Defesa do Consumidor e das normas da ABNT. Trabalhamos exclusivamente com insumos de primeira linha homologados pelos principais fabricantes de tintas, resinas e impermeabilizantes do Brasil.
+                  A AK Reformas assegura garantia formal sobre todos os serviços executados conforme estipulado no contrato de prestação de serviços, além das disposições do Código de Defesa do Consumidor e das normas da ABNT. Trabalhamos exclusivamente com insumos de primeira linha homologados pelos principais fabricantes (Coral, Suvinil, Vedacit, Viapol, Sika).
                 </p>
               </section>
 
               <section className="space-y-2">
-                <h3 className="text-base font-bold text-slate-900 font-display">5. Propriedade Intelectual</h3>
+                <h3 className="text-base font-bold text-slate-900 font-display">5. Foro</h3>
                 <p>
-                  Todos os textos, marcas, logotipos, fotografias de obras, ilustrações e layouts presentes neste site são de titularidade exclusiva da AK Reformas ou devidamente licenciados, sendo vedada a reprodução, cópia ou veiculação não autorizada para fins comerciais.
-                </p>
-              </section>
-
-              <section className="space-y-2">
-                <h3 className="text-base font-bold text-slate-900 font-display">6. Legislação e Foro</h3>
-                <p>
-                  Os presentes termos são regidos pelas leis da República Federativa do Brasil. Fica eleito o Foro da Comarca da Capital do Estado do Rio de Janeiro para dirimir quaisquer controvérsias oriundas da utilização do presente sítio eletrônico.
+                  Fica eleito o Foro da Comarca da Capital do Estado do Rio de Janeiro para dirimir quaisquer controvérsias oriundas da utilização do presente sítio eletrônico.
                 </p>
               </section>
             </div>
           )}
 
+          {/* ================= 3. POLÍTICA DE COOKIES ================= */}
           {activeTab === 'cookies' && (
-            /* ================= POLÍTICA DE COOKIES ================= */
             <div className="space-y-6 animate-in fade-in duration-150">
               <div className="bg-amber-50/80 border border-amber-200 rounded-xl p-4 text-xs text-amber-950 flex items-start gap-3">
                 <Cookie className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
@@ -286,7 +316,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                   <p className="font-bold text-amber-950 mb-0.5">Uso Consciente e Transparente de Cookies</p>
                   <p>
                     Esta política descreve como a AK Reformas e Manutenção Predial utiliza cookies e tecnologias similares em seu portal, 
-                    assegurando ao usuário total controle e transparência conforme as diretrizes da Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
+                    assegurando ao usuário total controle conforme a LGPD (Lei nº 13.709/2018).
                   </p>
                 </div>
               </div>
@@ -294,113 +324,290 @@ export const LegalModal: React.FC<LegalModalProps> = ({
               <section className="space-y-2">
                 <h3 className="text-base font-bold text-slate-900 font-display">1. O que são Cookies?</h3>
                 <p>
-                  Cookies são pequenos arquivos de texto armazenados no navegador do seu dispositivo (computador, smartphone ou tablet) quando você visita nosso website. Eles têm a função de reconhecer seu navegador, memorizar preferências essenciais de navegação (como personalizações visuais e fechamento de avisos) e permitir que os serviços funcionem com máxima estabilidade e rapidez.
+                  Cookies são pequenos arquivos de texto armazenados no navegador do seu dispositivo para memorizar preferências essenciais de navegação e garantir estabilidade e rapidez.
                 </p>
-              </section>
-
-              <section className="space-y-2">
-                <h3 className="text-base font-bold text-slate-900 font-display">2. Para que Utilizamos Cookies?</h3>
-                <p>
-                  A <strong>AK Reformas e Manutenção Predial</strong> utiliza cookies e armazenamento local exclusivamente para finalidades legítimas e necessárias à prestação de nossos serviços de engenharia e reformas:
-                </p>
-                <ul className="list-disc pl-5 space-y-1 text-slate-600">
-                  <li><strong>Estabilidade e Segurança:</strong> Garantir que as páginas carreguem com rapidez, prevenindo falhas de navegação e protegendo contra requisições maliciosas;</li>
-                  <li><strong>Experiência do Usuário:</strong> Memorizar preferências do visitante (como o consentimento de cookies e status de fechamento de janelas modais);</li>
-                  <li><strong>Atendimento e Orçamentos:</strong> Facilitar a integração rápida com nossos canais de atendimento direto via WhatsApp e formulários de orçamento técnico;</li>
-                  <li><strong>Métricas Anônimas de Desempenho:</strong> Analisar a audiência de forma agregada e anônima, identificando quais serviços (fachadas prediais, impermeabilizações, pinturas técnicas) despertam maior interesse no Rio de Janeiro.</li>
-                </ul>
               </section>
 
               <section className="space-y-3">
-                <h3 className="text-base font-bold text-slate-900 font-display">3. Categorias de Cookies que Utilizamos</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 space-y-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                      <h4 className="font-bold text-slate-900 text-xs sm:text-sm">Cookies Estritamente Necessários (Essenciais)</h4>
-                    </div>
-                    <p className="text-xs text-slate-600">
-                      Fundamentais para o carregamento do site, segurança, balanceamento de carga e integridade das sessões. Sem eles, o site não funciona adequadamente. Não exigem consentimento prévio nos termos da LGPD.
-                    </p>
+                <h3 className="text-base font-bold text-slate-900 font-display">2. Categorias de Cookies Utilizados</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70">
+                    <p className="font-bold text-slate-900 mb-1">Cookies Estritamente Necessários (Essenciais)</p>
+                    <p className="text-slate-600">Fundamentais para o carregamento do site, segurança e balanceamento de carga.</p>
                   </div>
-
-                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 space-y-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                      <h4 className="font-bold text-slate-900 text-xs sm:text-sm">Cookies de Funcionalidade e Preferência</h4>
-                    </div>
-                    <p className="text-xs text-slate-600">
-                      Guardam preferências do usuário (como opções de visualização, formulários preenchidos previamente e registro de consentimento) para que você não precise configurá-los a cada visita.
-                    </p>
+                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70">
+                    <p className="font-bold text-slate-900 mb-1">Cookies de Preferência e Consentimento</p>
+                    <p className="text-slate-600">Guardam suas opções de visualização e o aceite do aviso de privacidade.</p>
                   </div>
-
-                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 space-y-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                      <h4 className="font-bold text-slate-900 text-xs sm:text-sm">Cookies Analíticos e de Desempenho</h4>
-                    </div>
-                    <p className="text-xs text-slate-600">
-                      Coletam informações estatísticas anônimas sobre páginas visitadas, tempo de permanência e taxa de erros, auxiliando nossa equipe a aprimorar constantemente o portal.
-                    </p>
+                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70">
+                    <p className="font-bold text-slate-900 mb-1">Cookies Analíticos e de Desempenho</p>
+                    <p className="text-slate-600">Métricas totalmente anônimas de tráfego para aprimoramento de engenharia do portal.</p>
                   </div>
-
-                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 space-y-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-purple-500"></span>
-                      <h4 className="font-bold text-slate-900 text-xs sm:text-sm">Cookies de Terceiros e Integrações</h4>
-                    </div>
-                    <p className="text-xs text-slate-600">
-                      Utilizados para conectar com serviços confiáveis de parceiros, como a API oficial do WhatsApp (para atendimento e envio de fotos para vistoria técnica) e redes de entrega de conteúdo (CDN).
-                    </p>
+                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70">
+                    <p className="font-bold text-slate-900 mb-1">Cookies de Integração (WhatsApp / CDN)</p>
+                    <p className="text-slate-600">Utilizados para conectar com serviços confiáveis de atendimento imediato.</p>
                   </div>
                 </div>
               </section>
 
               <section className="space-y-2">
-                <h3 className="text-base font-bold text-slate-900 font-display">4. Como Você Pode Gerenciar ou Desativar os Cookies</h3>
-                <p>
-                  Você pode, a qualquer instante, configurar seu navegador para bloquear ou alertá-lo sobre o uso de cookies. No entanto, lembre-se de que a desativação de cookies essenciais pode afetar algumas funcionalidades interativas do nosso portal.
-                </p>
+                <h3 className="text-base font-bold text-slate-900 font-display">3. Como Desativar Cookies no Navegador</h3>
                 <p className="text-xs text-slate-600">
-                  Para gerenciar cookies diretamente no seu navegador:
+                  Você pode gerenciar e desativar cookies a qualquer momento nas configurações do seu navegador:
+                  Google Chrome (Configurações &gt; Privacidade e Segurança), Mozilla Firefox, Apple Safari ou Microsoft Edge.
                 </p>
-                <ul className="list-disc pl-5 space-y-1 text-slate-600 text-xs">
-                  <li><strong>Google Chrome:</strong> Configurações &gt; Privacidade e Segurança &gt; Cookies de terceiros.</li>
-                  <li><strong>Mozilla Firefox:</strong> Configurações &gt; Privacidade e Segurança &gt; Cookies e dados de sites.</li>
-                  <li><strong>Apple Safari:</strong> Preferências &gt; Privacidade &gt; Gerenciar Dados do Site.</li>
-                  <li><strong>Microsoft Edge:</strong> Configurações &gt; Cookies e permissões de site &gt; Gerenciar e excluir cookies.</li>
-                </ul>
-              </section>
-
-              <section className="space-y-2">
-                <h3 className="text-base font-bold text-slate-900 font-display">5. Validade e Retenção dos Cookies</h3>
-                <p>
-                  Os cookies de sessão expiram automaticamente assim que você fecha o seu navegador. Já os cookies persistentes permanecem armazenados por um período predeterminado ou até que você realize a limpeza do histórico do navegador.
-                </p>
-              </section>
-
-              <section className="space-y-2">
-                <h3 className="text-base font-bold text-slate-900 font-display">6. Dúvidas e Fale Conosco</h3>
-                <p>
-                  Em caso de dúvidas sobre nossa Política de Cookies ou sobre como seus dados são tratados, entre em contato diretamente com nossa equipe de suporte e encarregado de dados (DPO):
-                </p>
-                <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs space-y-1.5 text-slate-600">
-                  <p className="font-semibold text-slate-900">AK Reformas e Manutenção Predial</p>
-                  <p className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5 text-blue-600" /> Atendimento em todo o Rio de Janeiro - RJ</p>
-                  <p className="flex items-center gap-2"><Phone className="w-3.5 h-3.5 text-blue-600" /> WhatsApp: (21) 99999-9999</p>
-                  <p className="flex items-center gap-2"><Mail className="w-3.5 h-3.5 text-blue-600" /> E-mail: contato@akreformas.com.br</p>
-                </div>
               </section>
             </div>
           )}
+
+          {/* ================= 4. SOBRE NÓS (TEXTO E FOTO INSTITUCIONAL) ================= */}
+          {activeTab === 'about' && (
+            <div className="space-y-6 animate-in fade-in duration-150">
+              <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-sm max-h-72">
+                <img
+                  src="/extracted/trabalho_em_altura.jpg"
+                  alt="Equipe técnica da AK Reformas realizando trabalho em altura com alpinismo industrial no Rio de Janeiro"
+                  className="w-full h-full object-cover max-h-72"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent flex items-end p-5">
+                  <div className="text-white">
+                    <span className="px-2.5 py-1 rounded-full bg-blue-600 text-[10px] font-bold uppercase tracking-wider">
+                      Alpinismo Industrial Certificado NR-35
+                    </span>
+                    <h3 className="text-lg font-bold font-display mt-1">
+                      Excelência Operacional e Engenharia Civil no Rio de Janeiro
+                    </h3>
+                  </div>
+                </div>
+              </div>
+
+              <section className="space-y-2">
+                <h3 className="text-base font-bold text-slate-900 font-display">Nossa Trajetória e Propósito</h3>
+                <p>
+                  A <strong>AK Reformas e Manutenção Predial</strong> nasceu no Rio de Janeiro com a missão de transformar o mercado de reformas condominiais, residenciais e corporativas, unindo rigor técnico de engenharia civil, segurança do trabalho inegociável e atendimento humanizado.
+                </p>
+                <p>
+                  Nossos profissionais são capacitados em alpinismo industrial (NR-35), o que permite executar restaurações de fachadas, impermeabilizações em altura, lavagens técnicas e hidrojateamento com agilidade superior, sem a necessidade de montagem de andaimes pesados que atrapalhem o fluxo dos condomínios.
+                </p>
+              </section>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                <div className="p-3.5 rounded-xl bg-blue-50/70 border border-blue-200 text-xs">
+                  <p className="font-bold text-blue-950 mb-1">Missão</p>
+                  <p className="text-blue-900">Valorizar o patrimônio de nossos clientes com obras seguras, duráveis e pontuais.</p>
+                </div>
+                <div className="p-3.5 rounded-xl bg-amber-50/70 border border-amber-200 text-xs">
+                  <p className="font-bold text-amber-950 mb-1">Visão</p>
+                  <p className="text-amber-900">Ser referência absoluta em manutenção e restauração predial no Estado do Rio de Janeiro.</p>
+                </div>
+                <div className="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200 text-xs">
+                  <p className="font-bold text-emerald-950 mb-1">Valores</p>
+                  <p className="text-emerald-900">Segurança de vida (NR-35), conformidade legal (CREA-RJ / ART) e honestidade em orçamentos.</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ================= 5. POLÍTICA DE PUBLICIDADE E MONETIZAÇÃO ================= */}
+          {activeTab === 'advertising' && (
+            <div className="space-y-6 animate-in fade-in duration-150">
+              <div className="bg-purple-50 border border-purple-200 rounded-xl p-4 text-xs text-purple-900 flex items-start gap-3">
+                <Sparkles className="w-5 h-5 text-purple-600 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-bold text-purple-950 mb-0.5">Compromisso com a Transparência e Independência Comercial</p>
+                  <p>
+                    A AK Reformas e Manutenção Predial preza pelo respeito absoluto ao visitante, síndicos e gestores patrimoniais.
+                  </p>
+                </div>
+              </div>
+
+              <section className="space-y-2">
+                <h3 className="text-base font-bold text-slate-900 font-display">1. Ausência de Publicidade Invasiva ou Oculta</h3>
+                <p>
+                  Este website é de caráter estritamente institucional e informativo. Não veiculamos anúncios intrusivos de redes de terceiros (banners enganosos, pop-ups de afiliados ou links de monetização patrocinada não declarada).
+                </p>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-base font-bold text-slate-900 font-display">2. Parcerias Técnicas com Fabricantes</h3>
+                <p>
+                  Eventuais menções a marcas parceiras (como Suvinil, Coral, Sherwin-Williams, Vedacit ou Sika) ocorrem exclusivamente em decorrência de homologação técnica de insumos e garantias estendidas de fábrica aplicadas nas obras executadas, sem qualquer interferência editorial no diagnóstico das necessidades do seu imóvel.
+                </p>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-base font-bold text-slate-900 font-display">3. Precificação Honesta e Sem Taxas Ocultas</h3>
+                <p>
+                  Nossa remuneração advém unicamente dos contratos formais de prestação de serviços de engenharia e reformas firmados entre a AK Reformas e os clientes contratantes. Todas as propostas comerciais discriminam com clareza os custos de mão de obra, materiais e impostos.
+                </p>
+              </section>
+            </div>
+          )}
+
+          {/* ================= 6. CONTATO COM FORMULÁRIO E E-MAIL ================= */}
+          {activeTab === 'contact' && (
+            <div className="space-y-6 animate-in fade-in duration-150">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                {/* Contact Information */}
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-base font-bold text-slate-900 font-display">Fale Diretamente Conosco</h3>
+                    <p className="text-xs text-slate-600 mt-1">
+                      Nossa equipe técnica e comercial está à disposição para atendimento ágil em todo o Grande Rio.
+                    </p>
+                  </div>
+
+                  <div className="space-y-3 text-xs">
+                    <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+                      <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center text-blue-700 shrink-0">
+                        <MapPin className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-slate-900">Atendimento Regional</p>
+                        <p className="text-slate-600">Todo o Estado do Rio de Janeiro - RJ</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+                      <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700 shrink-0">
+                        <Phone className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-slate-900">WhatsApp Comercial</p>
+                        <a href="https://wa.me/5521999999999" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:underline font-semibold">
+                          (21) 99999-9999
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+                      <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center text-blue-700 shrink-0">
+                        <Mail className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-slate-900">E-mail Corporativo</p>
+                        <a href="mailto:contato@akreformas.com.br" className="text-blue-700 hover:underline font-semibold">
+                          contato@akreformas.com.br
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Direct Contact Form */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                  <h4 className="font-bold text-slate-900 text-sm mb-3 flex items-center gap-2">
+                    <Send className="w-4 h-4 text-blue-600" />
+                    <span>Envie sua Mensagem</span>
+                  </h4>
+
+                  {contactSent ? (
+                    <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs space-y-2 text-center">
+                      <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
+                      <p className="font-bold text-sm">Mensagem Encaminhada com Sucesso!</p>
+                      <p>Nossa equipe técnica responderá prontamente pelo WhatsApp ou e-mail.</p>
+                      <button
+                        type="button"
+                        onClick={() => setContactSent(false)}
+                        className="mt-2 px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs"
+                      >
+                        Enviar outra mensagem
+                      </button>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleContactSubmit} className="space-y-3 text-xs">
+                      <div>
+                        <label className="block text-slate-700 font-semibold mb-1">Seu Nome / Razão Social *</label>
+                        <input
+                          type="text"
+                          required
+                          value={contactName}
+                          onChange={(e) => setContactName(e.target.value)}
+                          placeholder="Ex: Síndico Carlos / Condomínio Solar"
+                          className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                          <label className="block text-slate-700 font-semibold mb-1">Telefone / WhatsApp *</label>
+                          <input
+                            type="tel"
+                            required
+                            value={contactPhone}
+                            onChange={(e) => setContactPhone(e.target.value)}
+                            placeholder="(21) 99999-9999"
+                            className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-slate-700 font-semibold mb-1">E-mail *</label>
+                          <input
+                            type="email"
+                            required
+                            value={contactEmail}
+                            onChange={(e) => setContactEmail(e.target.value)}
+                            placeholder="seu@email.com"
+                            className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-slate-700 font-semibold mb-1">Tipo de Imóvel</label>
+                        <select
+                          value={contactType}
+                          onChange={(e) => setContactType(e.target.value)}
+                          className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white cursor-pointer"
+                        >
+                          <option value="Condomínio Residencial">Condomínio Residencial (Edifício)</option>
+                          <option value="Condomínio Comercial">Prédio / Centro Comercial</option>
+                          <option value="Empresa / Indústria">Empresa / Galpão Industrial</option>
+                          <option value="Residência">Casa / Residência Particular</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-slate-700 font-semibold mb-1">Detalhes da Reforma ou Vistoria *</label>
+                        <textarea
+                          rows={3}
+                          required
+                          value={contactMessage}
+                          onChange={(e) => setContactMessage(e.target.value)}
+                          placeholder="Ex: Reforma da fachada principal, pintura e recuperação de pastilhas..."
+                          className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white resize-none"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="w-full py-2.5 rounded-xl bg-[#033b7b] hover:bg-[#054fa8] text-white font-bold text-xs transition-colors cursor-pointer shadow-sm flex items-center justify-center gap-2"
+                      >
+                        <Send className="w-3.5 h-3.5" />
+                        <span>Enviar Solicitação Direta</span>
+                      </button>
+                    </form>
+                  )}
+                </div>
+
+              </div>
+            </div>
+          )}
+
         </div>
 
-        {/* Footer actions */}
+        {/* Footer actions with Home Link and Last Update */}
         <div className="bg-slate-50 border-t border-slate-200 px-5 sm:px-8 py-3.5 flex flex-wrap items-center justify-between gap-3 shrink-0">
-          <p className="text-xs text-slate-500">
-            Última atualização: {new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}
-          </p>
+          <button
+            onClick={handleReturnHome}
+            className="flex items-center gap-1.5 text-xs font-bold text-blue-700 hover:text-blue-900 transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Voltar para o Início (Home)</span>
+          </button>
+          
           <div className="flex items-center gap-2">
             {onOpenQuoteModal && (
               <button
@@ -421,6 +628,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
             </button>
           </div>
         </div>
+
       </div>
     </div>
   );

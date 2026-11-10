@@ -67,8 +67,12 @@ export const Testimonials: React.FC<TestimonialsProps> = ({
                       <div className="w-12 h-12 rounded-full overflow-hidden shrink-0 border-2 border-slate-100 shadow-sm bg-slate-100">
                         <img
                           src={item.avatar}
-                          alt={item.name}
+                          alt={`Depoimento de ${item.name} (${item.location}) - Avaliação de cliente AK Reformas`}
                           className="w-full h-full object-cover"
+                          loading="lazy"
+                          decoding="async"
+                          width={48}
+                          height={48}
                           referrerPolicy="no-referrer"
                         />
                       </div>
