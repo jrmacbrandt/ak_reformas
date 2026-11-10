@@ -255,7 +255,7 @@ export const AKBrandLogo: React.FC<{
       {/* Top AK Mark with Paint Brush Swoosh */}
       <div className="relative flex items-center justify-center">
         <span
-          className={`font-display text-4xl sm:text-5xl font-black tracking-tighter ${
+          className={`font-display text-3xl sm:text-5xl font-black tracking-tighter ${
             isLight ? 'text-white drop-shadow-md' : 'text-[#0e3568]'
           }`}
           style={{ letterSpacing: '-0.04em' }}
@@ -263,7 +263,7 @@ export const AKBrandLogo: React.FC<{
           AK
         </span>
         {/* Dynamic paint brush stroke sweeping up to the right */}
-        <div className="absolute -top-1 right-[-24px] sm:right-[-28px] w-12 sm:w-14 h-9 pointer-events-none">
+        <div className="absolute -top-1 right-[-20px] sm:right-[-28px] w-10 sm:w-14 h-8 sm:h-9 pointer-events-none">
           <svg viewBox="0 0 80 50" fill="none" className="w-full h-full drop-shadow-sm">
             {/* Brush handle */}
             <path
@@ -289,12 +289,12 @@ export const AKBrandLogo: React.FC<{
       </div>
 
       {/* Layer 2: Subtitle / Brand Tagline (Pure HTML Text Layer) */}
-      <div className="mt-1 text-center sm:text-left">
+      <div className="mt-0.5 sm:mt-1 text-center sm:text-left">
         <span
           contentEditable={isEditable}
           suppressContentEditableWarning
           onBlur={(e) => onEdit && onEdit('tagline', e.currentTarget.textContent || '')}
-          className={`block text-[11px] sm:text-[12px] font-black tracking-wider uppercase transition-colors ${
+          className={`block text-[9.5px] sm:text-[12px] font-black tracking-wider uppercase transition-colors ${
             isLight ? 'text-white' : 'text-[#0d2e58]'
           } ${isEditable ? 'outline-dashed outline-1 outline-blue-400 cursor-text px-1 bg-blue-50/50' : ''}`}
         >
@@ -306,7 +306,7 @@ export const AKBrandLogo: React.FC<{
           contentEditable={isEditable}
           suppressContentEditableWarning
           onBlur={(e) => onEdit && onEdit('slogan', e.currentTarget.textContent || '')}
-          className={`block text-[8.5px] sm:text-[9.5px] font-bold tracking-[0.22em] uppercase transition-colors ${
+          className={`block text-[7.5px] sm:text-[9.5px] font-bold tracking-[0.22em] uppercase transition-colors ${
             isLight ? 'text-slate-200' : 'text-[#1e4474]'
           } ${isEditable ? 'outline-dashed outline-1 outline-blue-400 cursor-text px-1 bg-blue-50/50' : ''}`}
         >

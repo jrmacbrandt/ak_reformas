@@ -101,7 +101,7 @@ export const FAQ: React.FC<FAQProps> = ({ onOpenQuoteModal }) => {
   return (
     <section
       id="faq"
-      className="relative z-20 rounded-t-3xl sm:rounded-t-[48px] py-14 sm:py-20 bg-gradient-to-b from-white via-slate-50 to-slate-100 text-slate-800 shadow-[0_-25px_50px_rgba(0,0,0,0.3)] scroll-mt-20 border-t border-slate-200"
+      className="relative z-20 rounded-t-3xl sm:rounded-t-[48px] -mt-6 sm:-mt-8 py-14 sm:py-20 bg-gradient-to-b from-white via-slate-50 to-slate-100 text-slate-800 shadow-[0_-25px_50px_rgba(0,0,0,0.3)] scroll-mt-20 border-t border-slate-200"
       aria-labelledby="faq-heading"
     >
       {/* Schema.org FAQPage for Google Rich Snippets */}

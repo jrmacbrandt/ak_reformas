@@ -35,7 +35,7 @@ export const Hero: React.FC<HeroProps> = ({
   return (
     <section
       id="inicio"
-      className="sticky z-0 overflow-hidden bg-[#03214a] text-white min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] flex items-center w-full top-[calc(100vh-100%)] lg:top-0"
+      className="relative lg:sticky lg:top-0 z-0 bg-[#03214a] text-white min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] flex items-center w-full"
     >
       {/* Background Container anchored to the RIGHT, scaling to 100% height without any cropping of helmet or yellow badge */}
       <div className="absolute inset-0 z-0 flex justify-end overflow-hidden bg-[#03214a] pointer-events-none select-none">
