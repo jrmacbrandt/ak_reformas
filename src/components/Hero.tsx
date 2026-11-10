@@ -105,14 +105,14 @@ export const Hero: React.FC<HeroProps> = ({
         <div className="absolute inset-0 bg-[#03214a]/60 lg:hidden pointer-events-none" />
       </div>
 
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 sm:pb-16 lg:pb-20 relative w-full">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-6 lg:pt-8 pb-12 sm:pb-16 lg:pb-20 relative w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Left Column: Headlines, Paragraph, and Yellow CTA Button */}
-          <div className="lg:col-span-7 z-20 pt-2 lg:pt-6 text-center lg:text-left">
+          <div className="lg:col-span-7 z-20 pt-0 sm:pt-1 lg:pt-6 text-center lg:text-left">
             
             {/* Visual SEO & Geo Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-[11px] sm:text-xs font-bold tracking-wide uppercase mb-2 shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-[11px] sm:text-xs font-bold tracking-wide uppercase mb-4 sm:mb-6 shadow-xs">
               <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse"></span>
               <span>Rio de Janeiro · Alpinismo Industrial NR-35 · Pintura de Fachadas</span>
             </div>
